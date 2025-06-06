@@ -42,9 +42,18 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             container.appendChild(menuCard);
         });
-        addAddToCartListeners();
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.removeEventListener('click', handleAddToCart);
+        button.addEventListener('click', handleAddToCart);
+        });
+        // addAddToCartListeners();
     }
-
+function handleAddToCart(event) {
+    const name = event.target.dataset.name;
+    const price = parseFloat(event.target.dataset.price);
+    addItemToCart(name, price);
+}
+    
     function addAddToCartListeners() {
         document.querySelectorAll('.add-to-cart').forEach(button => {
             button.addEventListener('click', (event) => {

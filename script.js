@@ -1,20 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const menuItems = {
+ document.addEventListener('DOMContentLoaded', () => {
+   const menuItems = {
         mainCourse: [
-            { name: 'Chicken Shawarma', price: 90 },
-            { name: 'Chicken Biryani', price: 300 },
-            { name: 'Paneer Butter Masala', price: 400 },
-            { name: 'Mutton Biryani', price: 350 },
-            { name: 'French Fries', price: 120 },
-            { name: 'Pasta', price: 200 },
-            { name: 'Veg Biryani', price: 250 }
+            { id: 101, name: 'Chicken Shawarma', price: 90 },
+            { id: 102, name: 'Chicken Biryani', price: 300 },
+            { id: 103, name: 'Paneer Butter Masala', price: 400 },
+            { id: 104, name: 'Mutton Biryani', price: 350 },
+            { id: 105, name: 'French Fries', price: 120 },
+            { id: 106, name: 'Pasta', price: 200 },
+            { id: 107, name: 'Veg Biryani', price: 250 }
         ],
         beverages: [
-            { name: 'Mango Lassi', price: 150 },
-            { name: 'Fruit Salad', price: 100 },
-            { name: 'Milk Shake', price: 130 },
-            { name: 'Coffee', price: 90 },
-            { name: 'Cocktail', price: 180 }
+            { id: 201, name: 'Mango Lassi', price: 150 },
+            { id: 202, name: 'Fruit Salad', price: 100 },
+            { id: 203, name: 'Milk Shake', price: 130 },
+            { id: 204, name: 'Coffee', price: 90 },
+            { id: 205, name: 'Cocktail', price: 180 }
         ]
     };
 
@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const menuCard = document.createElement('div');
             menuCard.classList.add('menu-card');
             menuCard.innerHTML = `
-                <h3>${item.name}</h3>
+                <h3>${item.name} (ID: ${item.id})</h3>
                 <p>₹ ${item.price}</p>
-                <button class="add-to-cart" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
+                <button class="add-to-cart" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
             `;
             container.appendChild(menuCard);
         });
@@ -147,3 +147,4 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMenuItems('beverages', beveragesContainer);
     updateCartDisplay();
 });
+

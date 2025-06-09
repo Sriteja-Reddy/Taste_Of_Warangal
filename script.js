@@ -58,6 +58,14 @@
     function handleAddToCart(event) {
         const name = event.target.dataset.name;
         const price = parseFloat(event.target.dataset.price);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'add_to_cart',
+            item_price: price,
+            user_age: 22,
+            quantity: 1,
+            event_time: new Date().toISOString()
+        })
         addItemToCart(name, price);
     }
 
@@ -147,4 +155,54 @@
     renderMenuItems('beverages', beveragesContainer);
     updateCartDisplay();
 });
+
+document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const name = event.target.querySelector('input[placeholder="Your Name"]').value.trim();
+    const email = event.target.querySelector('input[placeholder="Your Email"]').value.trim();
+    const age = event.target.querySelector('input[placeholder="Your age"]').value.trim();
+    const productID = event.target.querySelector('input[placeholder="Product ID eg: 100"]').value.trim();
+    const phone = event.target.querySelector('input[placeholder="Your Phone Number"]').value.trim();
+    const message = event.target.querySelector('textarea').value.trim();
+
+    // Simple validation check
+    if (!name || !email || !age || !productID || !phone || !message) {
+        alert("Please fill in all fields before submitting.");
+        return;
+    }
+    console.log("Name:",name);
+    
+    // Log form data (Can be sent to backend later)
+    const formData = {
+        name,
+        email,
+        age,
+        productID,
+        phone,
+        message,
+        submittedAt: new Date().toISOString()
+    };
+
+    console.log("Contact Form Submitted:", formData);
+
+    gtag('event' , 'contactform_event' ,{
+        user_name:name,
+        user_email:email,
+        user_age:age,
+        user_product_Id:productID,
+        user_phone:phone,
+        user_message:message,
+        submission_count:1
+    })
+
+    console.log('contactfrom_event sent successfully');
+    
+    // Display success message
+    alert(`Thank you, ${name}! Your message has been sent.`);
+
+    // Optional: Reset form after submission
+    event.target.reset();
+});
+
 

@@ -195,7 +195,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         user_message:message,
         submission_count:1
     })
-
+    console.log(name, age , email, productID , phone , message)
     console.log('contactfrom_event sent successfully');
     
     // Display success message

@@ -1,20 +1,36 @@
- document.addEventListener('DOMContentLoaded', () => {
-   const menuItems = {
+document.addEventListener('DOMContentLoaded', () => {
+    const menuItems = {
         mainCourse: [
-            { id: 101, name: 'Chicken Shawarma', price: 90 },
-            { id: 102, name: 'Chicken Biryani', price: 300 },
-            { id: 103, name: 'Paneer Butter Masala', price: 400 },
-            { id: 104, name: 'Mutton Biryani', price: 350 },
-            { id: 105, name: 'French Fries', price: 120 },
-            { id: 106, name: 'Pasta', price: 200 },
-            { id: 107, name: 'Veg Biryani', price: 250 }
+            { id: 101, name: 'Chicken Shawarma', price: 90, image: 'img/SHAWARMA.jfif' },
+            { id: 102, name: 'Chicken Biryani', price: 300,  image:'img/CHICKEN_BIRIYANI.jpg'},
+            { id: 103, name: 'Paneer Butter Masala', price: 400, image:'img/panner_butter_masala.jfif'},
+            { id: 104, name: 'Mutton Biryani', price: 350, image:'img/Mutton-Biryani.jpg'},
+            { id: 105, name: 'French Fries', price: 120, image:'img/french_fries.jfif'},
+            { id: 106, name: 'Pasta', price: 200, image:'img/pasta.jfif'},
+            { id: 107, name: 'Veg Biryani', price: 250, image:'img/veg biryani.jfif' },
+            { id: 108, name: 'Butter Naan', price: 20, image:'img/Naan.jfif' },
+            { id: 109, name: 'Aloo Parantha', price: 69, image:'img/Aloo parantha.jfif' },
+            { id: 110, name: 'Pizza', price: 250, image:'img/pizza.jfif' },
         ],
         beverages: [
-            { id: 201, name: 'Mango Lassi', price: 150 },
-            { id: 202, name: 'Fruit Salad', price: 100 },
-            { id: 203, name: 'Milk Shake', price: 130 },
-            { id: 204, name: 'Coffee', price: 90 },
-            { id: 205, name: 'Cocktail', price: 180 }
+            { id: 201, name: 'Mango Lassi', price: 150, image: 'img/mango lassi.jfif'},
+            { id: 202, name: 'Fruit Salad', price: 100, image: 'img/fruit salad.jfif'},
+            { id: 203, name: 'Milk Shake', price: 130, image: 'img/milk shake.jfif'},
+            { id: 204, name: 'Coffee', price: 90, image: 'img/coffee.jfif'},
+            { id: 205, name: 'Cocktail', price: 180, image: 'img/cocktail.jfif' }
+        ],
+        desserts: [
+            { id: 301, name: 'Tiramisu', price:150, image:'img/tiramisu.jfif'},
+            { id: 302, name: 'Cheese cake', price:250, image:'img/cheese cake.jfif'},
+            { id: 303, name: 'Cookies', price:100, image:'img/cookies.jfif'},
+            { id: 304, name: 'Chocolate brownie', price:150, image:'img/chocolate brownie.jfif'},
+            { id: 305, name: 'Kulfi', price:80, image:'img/kulfi.jfif'},
+            { id: 306, name: 'Barfi', price:120, image:'img/Barfi.jfif'},
+            { id: 307, name: 'Kalakand', price:300, image:'img/kalakand.jfif'},
+            { id: 308, name: 'Apple pie', price:350, image:'img/apple pie.jfif'},
+            { id: 309, name: 'Date pudding', price:200, image:'img/date pudding.jfif'},
+            { id: 310, name: 'Besan ladoo', price:150, image:'img/Besan ladoo.jfif'}
+
         ]
     };
 
@@ -22,6 +38,7 @@
 
     const mainCourseContainer = document.getElementById('main-course-container');
     const beveragesContainer = document.getElementById('beverages-container');
+    const dessertsContainer = document.getElementById('desserts-container');
     const cartCountSpan = document.getElementById('cart-count');
     const cartModal = document.getElementById('cartModal');
     const closeButton = document.querySelector('.close-button');
@@ -36,6 +53,7 @@
             const menuCard = document.createElement('div');
             menuCard.classList.add('menu-card');
             menuCard.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" style="width:100%; height:150px; border-radius:8px;"/>
                 <h3>${item.name} (ID: ${item.id})</h3>
                 <p>₹ ${item.price}</p>
                 <button class="add-to-cart" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Add to Cart</button>
@@ -78,6 +96,7 @@
         }
         updateCartDisplay();
         saveCart();
+
     }
 
     function removeItemFromCart(name) {
@@ -153,10 +172,11 @@
 
     renderMenuItems('mainCourse', mainCourseContainer);
     renderMenuItems('beverages', beveragesContainer);
+    renderMenuItems('desserts', dessertsContainer);
     updateCartDisplay();
 });
 
-document.querySelector('form').addEventListener('submit', function(event) {
+document.querySelector('form').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent default form submission
 
     const name = event.target.querySelector('input[placeholder="Your Name"]').value.trim();
@@ -171,8 +191,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
         alert("Please fill in all fields before submitting.");
         return;
     }
-    console.log("Name:",name);
-    
+    console.log("Name:", name);
+
     // Log form data (Can be sent to backend later)
     const formData = {
         name,
@@ -186,18 +206,20 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
     console.log("Contact Form Submitted:", formData);
 
-    gtag('event' , 'contactform_event' ,{
-        user_name:name,
-        user_email:email,
-        user_age:age,
-        user_product_Id:productID,
-        user_phone:phone,
-        user_message:message,
-        submission_count:1
+    gtag('event', 'contactform_event', {
+        user_name: name,
+        user_email: email,
+        user_age: age,
+        user_product_Id: productID,
+        user_phone: phone,
+        user_message: message,
+        submission_count: 1
     })
-    console.log(name, age , email, productID , phone , message)
-    console.log('contactfrom_event sent successfully');
+
     
+
+    console.log('contactfrom_event sent successfully');
+
     // Display success message
     alert(`Thank you, ${name}! Your message has been sent.`);
 

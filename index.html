@@ -1,287 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Taste of Warangal</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taste of Warangal</title>
 
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WHQ7X7DP');</script>
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-WHQ7X7DP");
+    </script>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    body {
-      background: linear-gradient(to bottom right, #fff3b0, #fcd5ce, #ffc8dd);
-      color: #333;
-    }
-    nav {
-      background-color: #fff;
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    nav a {
-      text-decoration: none;
-      font-weight: bold;
-      color: #e63946;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #ff6f61;
-    }
-    section {
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .menu-card {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .menu-card:hover {
-      transform: scale(1.05);
-    }
-    .menu-card button {
-      margin-top: 1rem;
-      padding: 0.75rem;
-      background-color: #28a745; /* Green for add to cart */
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s;
-    }
-    .menu-card button:hover {
-      background-color: #218838;
-    }
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    input, textarea {
-      width: 100%;
-      max-width: 250px;
-      padding: 0.5rem;
-      margin: 0.5rem auto;
-      display: block;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    button {
-      width: 100%;
-      max-width: 250px;
-      padding: 0.75rem;
-      margin: 0.5rem auto;
-      display: block;
-      background-color: #e63946;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-    }
-    button:hover {
-      background-color: #d62828;
-    }
-    footer {
-      background: #fff;
-      text-align: center;
-      padding: 1rem;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    }
-    /* Cart Modal Styles */
-    .cart-modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1001; /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-    .cart-modal-content {
-      background-color: #fefefe;
-      margin: 10% auto; /* 10% from the top and centered */
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%; /* Could be more or less, depending on screen size */
-      max-width: 600px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      position: relative;
-    }
-    .close-button {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    .close-button:hover,
-    .close-button:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    #cart-items {
-      list-style-type: none;
-      padding: 0;
-      margin-bottom: 1rem;
-    }
-    #cart-items li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      border-bottom: 1px dashed #eee;
-    }
-    #cart-items li:last-child {
-      border-bottom: none;
-    }
-    #cart-items li .remove-item {
-      color: #e63946;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    #cart-total {
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-align: right;
-      margin-top: 1rem;
-    }
-    #checkout-button {
-      background-color: #007bff;
-      margin-top: 1rem;
-    }
-    #checkout-button:hover {
-      background-color: #0056b3;
-    }
-  </style>
-   <!--Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHY7B05Q25"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+      body {
+        background: linear-gradient(to bottom right, #fff3b0, #fcd5ce, #ffc8dd);
+        color: #333;
+      }
+      nav {
+        background-color: #fff;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      nav a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #e63946;
+        transition: color 0.3s;
+      }
+      nav a:hover {
+        color: #ff6f61;
+      }
+      section {
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .menu-card {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .menu-card:hover {
+        transform: scale(1.05);
+      }
+      .menu-card button {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background-color: #28a745; /* Green for add to cart */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+      .menu-card button:hover {
+        background-color: #218838;
+      }
+      form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      input,
+      textarea {
+        width: 100%;
+        max-width: 250px;
+        padding: 0.5rem;
+        margin: 0.5rem auto;
+        display: block;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      button {
+        width: 100%;
+        max-width: 250px;
+        padding: 0.75rem;
+        margin: 0.5rem auto;
+        display: block;
+        background-color: #e63946;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+      }
+      button:hover {
+        background-color: #d62828;
+      }
+      footer {
+        background: #fff;
+        text-align: center;
+        padding: 1rem;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      }
+      /* Cart Modal Styles */
+      .cart-modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1001; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      }
+      .cart-modal-content {
+        background-color: #fefefe;
+        margin: 10% auto; /* 10% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        max-width: 600px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+      .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close-button:hover,
+      .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      #cart-items {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 1rem;
+      }
+      #cart-items li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed #eee;
+      }
+      #cart-items li:last-child {
+        border-bottom: none;
+      }
+      #cart-items li .remove-item {
+        color: #e63946;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      #cart-total {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: right;
+        margin-top: 1rem;
+      }
+      #checkout-button {
+        background-color: #007bff;
+        margin-top: 1rem;
+      }
+      #checkout-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    <!--Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZHY7B05Q25"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-ZHY7B05Q25');
-</script>
-</head>
-<body>
-   <!--Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WHQ7X7DP"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
- <!--End Google Tag Manager (noscript) -->
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#menu">Menu</a>
-    <a href="#address">Address</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About Us</a>
-    <a href="#" id="cart-icon">Cart (<span id="cart-count">0</span>)</a>
-  </nav>
+      gtag("config", "G-ZHY7B05Q25");
+    </script>
+  </head>
+  <body>
+    <!--Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-WHQ7X7DP"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!--End Google Tag Manager (noscript) -->
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#address">Address</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About Us</a>
+      <a href="#" id="cart-icon">Cart (<span id="cart-count">0</span>)</a>
+    </nav>
 
-  <section id="home">
-    <img src="food img.jpg" alt="Delicious Food" style="max-width: 100%; height: auto; border-radius: 10px;" />
-    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Taste of Warangal</h1>
-    <p style="font-size: 1.2rem;">Where every bite brings happiness 🍽️</p>
-  </section>
+    <section id="home">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem">Taste of Warangal</h1>
+      <p style="font-size: 1.2rem; padding-bottom: 10px">Where every bite brings happiness!</p>
+      <img
+        src="food img.jpg"
+        alt="Delicious Food"
+        style="max-width: 100%; height: auto; border-radius: 10px"
+      />
+    </section>
 
-<section id="menu" style="background-color: #ffe5b4;">
-    <h2 style="font-size: 2rem;">Our Menu</h2>
+    <section id="menu" style="background-color: #ffe5b4">
+      <h2 style="font-size: 2rem">Our Menu</h2>
 
-    <h3 style="font-size: 1.5rem; margin-top: 2rem; color: #d62828;">Main Course</h3>
-    <div class="menu-grid" id="main-course-container"></div>
+      <h3 style="font-size: 1.5rem; margin-top: 2rem; color: #d62828">
+        Main Course
+      </h3>
+      <div class="menu-grid" id="main-course-container"></div>
 
-    <h3 style="font-size: 1.5rem; margin-top: 2rem; color: #d62828;">Beverages</h3>
-    <div class="menu-grid" id="beverages-container"></div>
-</section>
+      <h3 style="font-size: 1.5rem; margin-top: 2rem; color: #d62828">
+        Beverages
+      </h3>
+      <div class="menu-grid" id="beverages-container"></div>
 
+      <h3 style="font-size: 1.5rem; margin-top: 2rem; color: #d62828">
+        Desserts
+      </h3>
+      <div class="menu-grid" id="desserts-container"></div>
+    </section>
 
-  <section id="address" style="background-color: #caffbf;">
-    <h2 style="font-size: 2rem;">Visit Us</h2>
-    <p>Naimnagar, Hanamkonda, Warangal, Telangana 506001 </p>
-  </section>
+    <section id="address" style="background-color: #caffbf">
+      <h2 style="font-size: 2rem">Visit Us</h2>
+      <p>Naimnagar, Hanamkonda, Warangal, Telangana 506001</p>
+    </section>
 
-  <section id="contact" style="background-color: #a0c4ff;">
-    <h2 style="font-size: 2rem;">Get in Touch</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <input type="number" placeholder="Your age" required min="1" max="120" />
-      <input type="number" placeholder="Product ID eg: 100" required min="100" max="1000" />
-      <input type="tel" placeholder="Your Phone Number" required pattern="[0-9]{10}" />
-      <textarea rows="4" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+    <section id="contact" style="background-color: #a0c4ff">
+      <h2 style="font-size: 2rem">Get in Touch</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <input
+          type="number"
+          placeholder="Your age"
+          required
+          min="1"
+          max="120"
+        />
+        <input
+          type="number"
+          placeholder="Product ID eg: 100"
+          required
+          min="100"
+          max="1000"
+        />
+        <input
+          type="tel"
+          placeholder="Your Phone Number"
+          required
+          pattern="[0-9]{10}"
+        />
+        <textarea rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
 
-  <section id="about" style="background-color: #e0bbff;">
-    <h2 style="font-size: 2rem;">About Us</h2>
-    <p>
-      Taste of Warangal is a vibrant family restaurant serving delicious and affordable meals.
-      We believe food is not just to satisfy hunger, but to spread happiness.
-      We have found the secret to happiness. That's right!
-      It's our Food.
-    </p>
-  </section>
+    <section id="about" style="background-color: #e0bbff">
+      <h2 style="font-size: 2rem">About Us</h2>
+      <p>
+        Taste of Warangal is a vibrant family restaurant serving delicious and
+        affordable meals. We believe food is not just to satisfy hunger, but to
+        spread happiness. We have found the secret to happiness. That's right!
+        It's our Food.
+      </p>
+    </section>
+    <section
+      id="video-section"
+      style="background-color: #ffe5b4; text-align: center; padding: 3rem"
+    >
+      <h2 style="font-size: 2rem">Experience Taste of Warangal</h2>
+      <p style="font-size: 1.2rem; margin: 10px" >
+        Watch our special video to see the magic behind our delicious food! 🍽️
+      </p>
 
-  <footer>
-    <p>© 2025 Taste of Warangal. All rights reserved.</p>
-  </footer>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/W2o5vCCmvpc?si=EnmobG3V0xUhKLmc"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </section>
 
-  <div id="cartModal" class="cart-modal">
-    <div class="cart-modal-content">
-      <span class="close-button">&times;</span>
-      <h2>Your Cart</h2>
-      <ul id="cart-items">
-        </ul>
-      <p id="cart-total">Total: ₹ 0</p>
-      <button id="checkout-button">Proceed to Checkout</button>
+    <footer>
+      <p>© 2025 Taste of Warangal. All rights reserved.</p>
+    </footer>
+
+    <div id="cartModal" class="cart-modal">
+      <div class="cart-modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <p id="cart-total">Total: ₹ 0</p>
+        <button id="checkout-button">Proceed to Checkout</button>
+      </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
 
- 
-
-
-
-
-
-
-
-
-
- 
 
 
 

@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taste of Warangal</title>
 
+    <script>
+        // Initialize or augment the existing Google's dataLayer for Adobe's use
+        window.dataLayer = window.dataLayer || [];
+        // Define page-level data for Adobe Analytics.
+        // For a single-page site like this, this will typically represent the 'Home Page'.
+        // This will be read by your 'DL - Page Name', 'DL - Page Type' Data Elements in Launch.
+        window.dataLayer.push({
+            'page': {
+                'name': 'Home Page', // Or dynamically set based on sections if it's an SPA
+                'type': 'Homepage',
+                'url': window.location.href
+            }
+        });
+</script>
+
 
 <script src="https://assets.adobedtm.com/236ca7d75265/1b928d01e126/launch-ce461a2d199a-development.min.js" async></script>
 
